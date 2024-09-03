@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: [self-hosted]  
 
     steps:
     - name: Checkout code
@@ -30,10 +30,17 @@ jobs:
     - name: Build the React app
       run: npm run build
 
+    - name: Copy build to another directory
+      run: cp -r ./build /path/to/destination
+
+    - name: Run a custom script
+      run: ./path/to/your-script.sh
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build 
+        publish_dir: ./build
         force_orphan: true
+
         
