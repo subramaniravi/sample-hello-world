@@ -30,17 +30,23 @@ jobs:
     - name: Build the React app
       run: npm run build
 
-    - name: Copy build to another directory
-      run: cp -r ./build /path/to/destination
+    - name: Capture the build output
+      run: |
+        mkdir -p output
+        cp -r ./build/* output/
 
-    - name: Run a custom script
-      run: ./path/to/your-script.sh
+    - name: Archive the output
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-output
+        path: output/
 
     - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./build
-        force_orphan: true
 
-        
+
+
