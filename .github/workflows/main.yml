@@ -18,6 +18,12 @@ jobs:
       with:
         node-version: '18'
 
+    - name: Check Node.js version
+      run: node -v
+
+    - name: Check npm version
+      run: npm -v
+
     - name: Install dependencies
       run: npm install
 
@@ -26,6 +32,9 @@ jobs:
 
     - name: Build the React app
       run: npm run build
+
+    - name: Ensure build directory exists
+      run: test -d build || echo "Build directory not found!"
 
     - name: Capture the build output
       run: |
@@ -44,6 +53,5 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./build
-
 
 
