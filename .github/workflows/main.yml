@@ -34,18 +34,4 @@ jobs:
     - name: Build the React app
       run: npm run build
 
-    - name: Ensure build directory exists
-      run: test -d build || echo "Build directory not found!"
-
-    - name: Capture the build output
-      run: |
-        mkdir -p output
-        cp -r ./build/* output/
-
-    - name: Archive the output
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-output
-        path: output/
-
-  
+    
